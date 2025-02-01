@@ -1,4 +1,4 @@
-name: CI Testing Github
+name: CI Testing fot Github
 
 on:
   push:
