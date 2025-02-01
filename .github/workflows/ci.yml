@@ -20,14 +20,12 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
+          distribution: 'adoptopenjdk'
 
       - name: Set API Key and Base URL
         run: |
           echo "APIKEY=${{ secrets.APIKEY }}" >> $GITHUB_ENV
           echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
 
-      - name: Build and run tests with Maven
-        run: mvn clean test
-        env:
-          apikey: ${{ secrets.APIKEY }}
-          base_url: ${{ secrets.BASE_URL }}
+      - name: Run tests
+        run: mvn test
