@@ -1,7 +1,6 @@
 package org.example;
 
 import io.qameta.allure.*;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,9 +10,17 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Epic("Тестирование проекта GitHub")
+@Feature("Тестирование GitHub API для репозиториев")
 public class ReadUserProfileTest extends GithubAbstractTest {
 
     @Test
+    @DisplayName("Тест shouldReadRepoSuccessfully - успешное получение всех репозиториев")
+    @Description("Данный тест предназначен для получения имеющихся репозиторий")
+    @Link("https://api.github.com/user/repos")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Получение существующих репозиториев")
+    @Owner("Ализаде Вугар")
     void shouldReadRepoSuccessfully() {
 
         List<Object> result = given()
@@ -31,6 +38,12 @@ public class ReadUserProfileTest extends GithubAbstractTest {
     }
 
     @Test
+    @DisplayName("Тест shouldFailToReadRepoWithInvalidData - неудачное получение всех репозиториев")
+    @Description("Тест проверяет обработку ошибки при получении репозиториев с некорректными данными")
+    @Link("https://api.github.com/user/repos")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Ошибка при получении репозиториев")
+    @Owner("Ализаде Вугар")
     void shouldFailToReadRepoWithInvalidData() {
         String errorMessage = given()
                 .header("Authorization", "token " + getApiKey())

@@ -16,12 +16,11 @@ public class GithubAbstractTest {
         apiKey = System.getProperty("apikey");
         baseUrl = System.getProperty("base_url");
 
-        if (apiKey == null || apiKey.isEmpty()) {
-            throw new IllegalArgumentException("API key is missing! Set -Dapikey=<your_key> in VM options.");
-        }
+        System.out.println("API Key: " + apiKey);
+        System.out.println("Base URL: " + baseUrl);
 
-        if (baseUrl == null || baseUrl.isEmpty()) {
-            throw new IllegalArgumentException("Base URL is missing! Set -Dbase_url=<your_url> in VM options.");
+        if (apiKey == null || baseUrl == null) {
+            throw new IllegalArgumentException("API key or Base URL not provided");
         }
 
         System.out.println("API Key and Base URL successfully loaded.");
