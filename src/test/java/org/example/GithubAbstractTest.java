@@ -12,18 +12,16 @@ public class GithubAbstractTest {
     static void initTest() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        // Чтение системных свойств с проверкой
-        apiKey = System.getenv("APIKEY");
-        baseUrl = System.getenv("BASE_URL");
-
-        System.out.println("API Key: " + apiKey);
-        System.out.println("Base URL: " + baseUrl);
-
-        if (apiKey == null || baseUrl == null) {
-            throw new IllegalArgumentException("API key or Base URL not provided");
+        // Проверка, если переменные переданы как системные свойства (локальная среда)
+        if (System.getProperty("apikey") != null && System.getProperty("base_url") != null) {
+            apiKey = System.getProperty("apikey");
+            baseUrl = System.getProperty("base_url");
         }
-
-        System.out.println("API Key and Base URL successfully loaded.");
+        // Иначе проверяем через переменные окружения (для GitHub Actions)
+        else {
+            apiKey = System.getenv("APIKEY");
+            baseUrl = System.getenv("BASE_URL");
+        }
     }
 
     public static String getApiKey() {
