@@ -21,7 +21,6 @@ public class UpdateRepositoryTest extends GithubAbstractTest {
     @Owner("Ализаде Вугар")
     void shouldUpdateRepoSuccessfully() {
 
-        // Тело запроса для создания репозитория
         String requestBody = """
                 {
                     "name": "vnbsu",
@@ -30,7 +29,6 @@ public class UpdateRepositoryTest extends GithubAbstractTest {
                 }
                 """;
 
-        // Выполнение POST запроса для создания репозитория
         String responseBody = given()
                 .header("Authorization", "token " + getApiKey())
                 .header("Content-Type", "application/json")
@@ -38,11 +36,10 @@ public class UpdateRepositoryTest extends GithubAbstractTest {
                 .when()
                 .patch(getBaseUrl() + "/repos/vugarunity/vnbs")
                 .then()
-                .statusCode(200) // Ожидаем код ответа 201 для успешного создания
+                .statusCode(200) 
                 .extract()
                 .body().asString();
 
-        // Проверка, что репозиторий был создан, и его имя совпадает с ожидаемым
         Assertions.assertTrue(responseBody.contains("\"name\":\"vnbsu\""), "Репозиторий был обновлен.");
     }
 
@@ -63,7 +60,6 @@ public class UpdateRepositoryTest extends GithubAbstractTest {
                 }
                 """;
 
-        // Выполнение POST запроса для создания репозитория
         String errorMessage = given()
                 .header("Authorization", "token " + getApiKey())
                 .header("Content-Type", "application/json")
@@ -71,7 +67,7 @@ public class UpdateRepositoryTest extends GithubAbstractTest {
                 .when()
                 .patch(getBaseUrl() + "/repos/vugarunity/vnb")
                 .then()
-                .statusCode(404) // Ожидаем код ответа 201 для успешного создания
+                .statusCode(404) 
                 .extract()
                 .path("message");
 
