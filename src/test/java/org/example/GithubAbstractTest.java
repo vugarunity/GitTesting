@@ -12,12 +12,10 @@ public class GithubAbstractTest {
     static void initTest() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        // Проверка, если переменные переданы как системные свойства (локальная среда)
         if (System.getProperty("apikey") != null && System.getProperty("base_url") != null) {
             apiKey = System.getProperty("apikey");
             baseUrl = System.getProperty("base_url");
         }
-        // Иначе проверяем через переменные окружения (для GitHub Actions)
         else {
             apiKey = System.getenv("APIKEY");
             baseUrl = System.getenv("BASE_URL");
