@@ -12,7 +12,6 @@ public class GithubAbstractTest {
     static void initTest() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        // Чтение системных свойств с проверкой
         apiKey = System.getProperty("apikey");
         baseUrl = System.getProperty("base_url");
 
