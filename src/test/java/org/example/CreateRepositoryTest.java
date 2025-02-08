@@ -16,7 +16,6 @@ public class CreateRepositoryTest extends GithubAbstractTest{
     @Test
     void shouldCreateRepoSuccessfully () {
 
-        // Тело запроса для создания репозитория
         String requestBody = """
                 {
                     "name": "vnbs",
@@ -24,8 +23,7 @@ public class CreateRepositoryTest extends GithubAbstractTest{
                     "private": false
                 }
                 """;
-
-        // Выполнение POST запроса для создания репозитория
+        
         String responseBody = given()
                 .header("Authorization", "token " + getApiKey())
                 .header("Content-Type", "application/json")
@@ -33,11 +31,10 @@ public class CreateRepositoryTest extends GithubAbstractTest{
                 .when()
                 .post(getBaseUrl() + "/user/repos")
                 .then()
-                .statusCode(201) // Ожидаем код ответа 201 для успешного создания
+                .statusCode(201)
                 .extract()
                 .body().asString();
 
-        // Проверка, что репозиторий был создан, и его имя совпадает с ожидаемым
         Assertions.assertTrue(responseBody.contains("\"name\":\"vnbs\""), "Репозиторий был создан.");
     }
 
@@ -50,21 +47,18 @@ public class CreateRepositoryTest extends GithubAbstractTest{
                     "private": false
                 }
                 """;
-
-        // Выполнение POST запроса с неверным путем
+        
         String errorMessage = given()
                 .header("Authorization", "token " + getApiKey())
                 .header("Content-Type", "application/json")
                 .body(requestBody)
                 .when()
-                .post(getBaseUrl() + "/user/repos") // исправлен путь
+                .post(getBaseUrl() + "/user/repos")
                 .then()
-                .statusCode(422) // GitHub вернет 422 Unprocessable Entity, если название уже существует
+                .statusCode(422) 
                 .extract()
                 .path("message");
 
-        // Логирование и проверка ошибки
-//        System.out.println("Полученное сообщение об ошибке: " + errorMessage);
         assertThat(errorMessage).contains("Repository creation failed");
     }
 
@@ -77,8 +71,7 @@ public class CreateRepositoryTest extends GithubAbstractTest{
                     "private": false
                 }
                 """;
-
-        // Выполнение POST запроса для создания репозитория
+        
         String errorMessage = given()
                 .header("Authorization", "token " + getApiKey())
                 .header("Content-Type", "application/json")
@@ -86,7 +79,7 @@ public class CreateRepositoryTest extends GithubAbstractTest{
                 .when()
                 .post(getBaseUrl() + "/user/repo")
                 .then()
-                .statusCode(404) // Ожидаем код ответа 201 для успешного создания
+                .statusCode(404)
                 .extract()
                 .path("message");
 
