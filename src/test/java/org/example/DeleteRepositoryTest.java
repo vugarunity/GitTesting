@@ -10,27 +10,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeleteRepositoryTest extends GithubAbstractTest {
 
-    // Сделать переменную полем класса, чтобы она была доступна в разных методах
-    String repositoryName = "vnbsu"; // Имя репозитория
+    String repositoryName = "vnbsu";
 
     @Test
     void shouldDeleteRepositorySuccessfully() {
 
-        // Удалить созданный репозиторий
         given()
                 .header("Authorization", "token " + getApiKey())
                 .when()
                 .delete(getBaseUrl() + "/repos/{owner}/{repo}", "vugarunity", repositoryName)
                 .then()
-                .statusCode(204); // Код 204 — успешное удаление без содержимого
+                .statusCode(204); 
 
-        // Проверить, что репозиторий действительно удален
         int statusCode = given()
                 .header("Authorization", "token " + getApiKey())
                 .when()
                 .get(getBaseUrl() + "/repos/{owner}/{repo}", "vugarunity", repositoryName)
                 .getStatusCode();
 
-        assertThat(statusCode).isEqualTo(404); // Код 404 — репозиторий не найден
+        assertThat(statusCode).isEqualTo(404); 
     }
 }
