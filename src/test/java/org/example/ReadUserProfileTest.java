@@ -25,7 +25,6 @@ public class ReadUserProfileTest extends GithubAbstractTest {
                 .extract()
                 .body().jsonPath().getList(".");
 
-//        Assertions.assertEquals(28, result.size());
         Assertions.assertNotNull(result);
         Assertions.assertFalse(result.isEmpty(), "Список репозиториев не должен быть пустым.");
     }
